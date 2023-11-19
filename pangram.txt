@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter a sentence to check : ");
+        String input = scanner.nextLine().toLowerCase(); // Convert to lowercase for case-insensitivity
+
+        boolean isPangram = Pangram(input);
+
+        if (isPangram) {
+            System.out.println("The input is a pangram.");
+        } else {
+            System.out.println("The input is not a pangram.");
+        }
+
+       
+        scanner.close();
+    }
+  //logic for pangram
+    private static boolean Pangram(String sentence) {
+        boolean[] alphabetPresent = new boolean[26]; // Array to mark the presence of each letter
+
+        for (int i = 0; i < sentence.length(); i++) {
+            char currentChar = sentence.charAt(i);
+
+            if (Character.isLetter(currentChar)) {
+                int index = currentChar - 'a'; // Map 'a' to 0, 'b' to 1, so on
+
+                // Mark the presence of the letter in the array
+                alphabetPresent[index] = true;
+            }
+        }
+
+        // to Check if all letters from 'a' to 'z' are present in the array
+        for (boolean letterPresent : alphabetPresent) {
+            if (!letterPresent) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
